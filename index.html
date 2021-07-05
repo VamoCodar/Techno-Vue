@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="./vue.min.js"></script>
+
+    <link rel="stylesheet" href="./style.css" />
+
+    <title>Techno</title>
+  </head>
+
+  <body>
+    <main id="app">
+      <section @click="fecharModal" class="modal" v-if="produto">
+        <div class="modal_container">
+          <div class="modal_img">
+            <img :src="produto.img" alt="" />
+          </div>
+          <div class="modal_dados">
+            <button @click="produto = false" class="modal_fechar">X</button>
+            <span class="modal_preco"> {{produto.preco | numeroPreco}}</span>
+            <h2 class="modal_titulo">{{produto.nome}}</h2>
+            <p>{{produto.descricao}}</p>
+
+            <button class="modal_btn">Adicionar Item</button>
+          </div>
+          <div class="avaliacoes">
+            <h2 class="avaliacoes_subtitulo">Avaliações</h2>
+            <ul>
+              <li v-for="review in produto.reviews" class="avaliacao">
+                <p class="avaliacao_descricao">{{review.descricao}}</p>
+                <p class="avaliacao_usuario">
+                  {{review.nome}} | {{review.estrelas}}
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="produtos">
+        <!--  -->
+        <div
+          v-for="item in produtos"
+          class="produto"
+          :key="item.id"
+          @click="abrirModal(item.id)"
+        >
+          <img :src="item.img" :alt="item.nome" class="produto_img" />
+          <div class="produto_info">
+            <span class="produto_preco">{{item.preco | numeroPreco}}</span>
+            <h2 class="produto_titulo">{{item.nome}}</h2>
+          </div>
+        </div>
+
+        <!--  -->
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
