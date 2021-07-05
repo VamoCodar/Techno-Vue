@@ -13,23 +13,31 @@ const vm = new Vue({
         }
     },
     methods: {
+
         fetchProdutos() {
             fetch("./api/produtos.json")
                 .then(r => r.json())
                 .then(json => this.produtos = json)
         },
+
         fetchProduto(id) {
             fetch(`./api/produtos/${id}/dados.json`)
                 .then(r => r.json())
-                .then(json => this.produto = json)
+                .then(json => {
+                    setTimeout(() => {
+                        this.produto = json
+                    }, 100);
+                })
         },
+
         abrirModal(id) {
             this.fetchProduto(id)
             window.scrollTo({
-                top:0,
-                behavior:"smooth"
+                top: 0,
+                behavior: "smooth"
             })
         },
+
         fecharModal({
             target,
             currentTarget
@@ -38,7 +46,6 @@ const vm = new Vue({
                 this.produto = false
         }
     },
-
 
     created() {
         this.fetchProdutos()
